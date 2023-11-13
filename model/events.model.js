@@ -4,25 +4,21 @@ const eventSchema = mongoose.Schema({
   title: {
     type: String,
     maxLength: 250,
-    trim: true,
-    required: true,
+    trim: true
   },
-  Details: {
+  details: {
     type: String,
     maxLength: 1000,
-    trim: true,
-    required: true
+    trim: true
   },
   on: {
-    type: Date,
-    required: true
+    type: Date
   },
   venue: {
     type: String,
-    maxLength: 100,
-    trim: true,
+    maxLength: 100
   },
-  RegistrationLink: {
+  registrationLink: {
     type: String,
     maxLength: 250,
     trim: true,

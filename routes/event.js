@@ -91,23 +91,34 @@ router.get("/between-dates", async (req, res) => {
 });
 
 //Uppdate By ID
-router.put("/update", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
-    const idQuery = req.query.id;
-    const titleUpdate = req.query.title;
+    const idQuery = req.params.id;
+    const eventUpdateData = {
+      title: req.body.title,
+      details: req.body.details,
+      on: req.body.on,
+      venue: req.body.venue,
+      registrationLink: req.body.registrationLink,
+    };
+
     eventSchema
-      .findByIdAndUpdate(idQuery, { title: titleUpdate })
+      .findByIdAndUpdate(idQuery, eventUpdateData, { new: true })
       .then((response) => {
         console.log(response);
-        res.status(200).json({message:"Updated Sucessfully", events: response, Count: response.length });
+        res.status(200).json({
+          message: "Updated Successfully",
+          events: response,
+          Count: response ? 1 : 0,
+        });
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ message: "Unable to Get Event" });
+        res.status(500).json({ message: "Unable to Update Event" });
       });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Unable to Get Event" });
+    res.status(500).json({ message: "Unable to Update Event" });
   }
 });
 
